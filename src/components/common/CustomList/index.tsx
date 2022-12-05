@@ -10,7 +10,7 @@ interface IListProps {
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
-  root: {
+  listRoot: {
     backgroundColor: theme.palette.common.white,
     width: "100%",
     height: "100%",
@@ -30,7 +30,7 @@ const ListContainer: React.FC<IListProps> = (props) => {
   };
   const classes = useStyles();
   return (
-    <Box className={classes.root}>
+    <Box className={classes.listRoot}>
       {search && (
         <TextField
           sx={{ width: "100%" }}
@@ -42,10 +42,10 @@ const ListContainer: React.FC<IListProps> = (props) => {
       <List
         sx={{
           width: "100%",
-          maxWidth: 360,
           height: "100%",
           overflow: "auto",
-          paddingBottom: "6rem",
+          padding: "1rem",
+          paddingBottom: "5rem",
           bgcolor: "background.paper",
         }}
       >

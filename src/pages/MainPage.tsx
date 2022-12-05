@@ -30,13 +30,14 @@ const MainPage = () => {
   } = useSelector(postsSelector);
   const { items } = useSelector(itemsSelector);
 
-  //
   // filters states
   const [userFilter, setUserFilter] = useState("");
   const [postFilter, setPostFilter] = useState("");
 
   const addToCart = (item: IItems) => {
-    dispatch(addItem(item));
+    if (!items.includes(item)) {
+      dispatch(addItem(item));
+    }
   };
 
   const removeToCart = (item: IItems) => {
@@ -96,19 +97,31 @@ const MainPage = () => {
             <Button
               variant="contained"
               onClick={() => clearCart()}
+              color="error"
               sx={{ marginBottom: "2rem", width: "100%" }}
             >
               clearCart
             </Button>
 
-            {items.map((item, index) => (
-              <Chip
-                label={`${item?.name || item?.title}`}
-                onClick={() => removeToCart(item)}
-                sx={{ margin: "0.5rem" }}
-                key={`${item?.name || item?.title} ${index}`}
-              />
-            ))}
+            {items.map((item, index) =>
+              item.name ? (
+                <Chip
+                  label={item?.name}
+                  onClick={() => removeToCart(item)}
+                  sx={{ margin: "0.5rem" }}
+                  key={`${item?.name}-${index}`}
+                  color="primary"
+                />
+              ) : (
+                <Chip
+                  label={item?.title}
+                  onClick={() => removeToCart(item)}
+                  sx={{ margin: "0.5rem" }}
+                  key={`${item?.title}-${index}`}
+                  color="secondary"
+                />
+              )
+            )}
           </ListContainer>
         </Grid>
       </Grid>
